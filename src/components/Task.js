@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import FontAwesome from "react-fontawesome";
+import PropTypes from "prop-types";
 
 import { taskPropType } from "../utils/propTypes";
 
@@ -23,13 +24,28 @@ class Task extends Component {
     })
   }
 
-  handleSave = () => {
-    // TODO: save updates
+  handleSaveTitle = () => {
+    this.props.saveTask({
+      ...this.props.task,
+      title: this.state.title,
+    })
     this.toggleEdit();
   }
 
   toggleEdit = () => {
     this.setState(({ editing }) => ({ editing: !editing }));
+  }
+
+  updateSubtasks = (updatedTask) => {
+    const { task } = this.props;
+
+    this.props.saveTask({
+      ...task,
+      tasks: {
+        ...task.tasks,
+        [updatedTask.id]: updatedTask,
+      }
+    })
   }
 
   render() {
@@ -41,14 +57,15 @@ class Task extends Component {
       return (
         <div className="task editing">
           <div className="details">
-            <button className="icon" onClick={this.handleSave}>
+            <button className="icon" onClick={this.handleSaveTitle}>
               <FontAwesome name="save" />
             </button>
             <input
-              type="text"
-              name="title"
-              placeholder="Task title"
               defaultValue={task.title}
+              name="title"
+              onChange={this.handleChange}
+              placeholder="Task title"
+              type="text"
             />
           </div>
         </div>
@@ -64,7 +81,7 @@ class Task extends Component {
           <p className="label">{task.title}</p>
         </div>
         <div className="subtasks">
-          {task.tasks && <List tasks={task.tasks} />}
+          {task.tasks && <List saveTask={this.updateSubtasks} tasks={task.tasks} />}
         </div>
       </div>
     );
@@ -72,6 +89,7 @@ class Task extends Component {
 }
 
 Task.propTypes = {
+  saveTask: PropTypes.func.isRequired,
   task: taskPropType.isRequired,
 };
 

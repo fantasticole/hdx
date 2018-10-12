@@ -2,28 +2,9 @@ import React, { Component } from "react";
 
 import List from "./components/List";
 
-import "./styles/app.scss";
+import sampleTasks from "./utils/sampleTasks";
 
-const sampleTasks = {
-  "test-task": {
-    id: "test-task",
-    title: "task",
-    tasks: {
-      "test-subtask": {
-        id: "test-subtask",
-        title: "subtask",
-      },
-    },
-  },
-  "test-tasktwo": {
-    id: "test-tasktwo",
-    title: "another task",
-  },
-  "test-taskthree": {
-    id: "test-taskthree",
-    title: "other task",
-  },
-};
+import "./styles/app.scss";
 
 class App extends Component {
   constructor(props) {
@@ -34,11 +15,24 @@ class App extends Component {
     };
   }
 
+  handleSaveTask = (task) => {
+    const { tasks } = this.state;
+
+    this.setState({
+      tasks: {
+        ...tasks,
+        [task.id]: task,
+      },
+    });
+  }
+
   render() {
+    const { tasks } = this.state;
+
     return (
       <div className="todo">
         <h1>To do:</h1>
-        <List tasks={this.state.tasks} />
+        <List saveTask={this.handleSaveTask} tasks={tasks} />
       </div>
     );
   }

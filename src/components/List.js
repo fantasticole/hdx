@@ -12,7 +12,11 @@ class List extends Component {
     return (
       <div className="list">
         {tasks.map((task) => (
-          <Task task={task} key={task.id}/>
+          <Task
+            task={task}
+            key={task.id}
+            saveTask={this.props.saveTask}
+          />
         ))}
       </div>
     );
@@ -20,6 +24,7 @@ class List extends Component {
 }
 
 List.propTypes = {
+  saveTask: PropTypes.func.isRequired,
   tasks: PropTypes.objectOf(taskPropType),
 };
 
