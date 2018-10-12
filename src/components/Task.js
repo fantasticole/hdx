@@ -58,6 +58,7 @@ class Task extends Component {
         <div className="task editing">
           <div className="details">
             <button
+              alt="save task"
               className="icon"
               disabled={this.state.title.length === 0}
               onClick={this.handleSaveTitle}
@@ -79,7 +80,10 @@ class Task extends Component {
     return (
       <div className="task">
         <div className="details">
-          <button className="icon" onClick={this.toggleEdit}>
+          <button
+            alt="edit task"
+            className="icon"
+            onClick={this.toggleEdit}>
             <FontAwesome name="edit" />
           </button>
           <p className="label">{task.title}</p>

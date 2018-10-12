@@ -53,7 +53,11 @@ class App extends Component {
     return (
       <div className="todo">
         <h1>To do:</h1>
-        <button className="icon" onClick={this.handleNewTask}>
+        <button
+          alt="new task"
+          className="icon"
+          onClick={this.handleNewTask}
+        >
           <FontAwesome name="plus-circle" />
           <p className="label">Add task</p>
         </button>
