@@ -20,7 +20,7 @@ const sampleTasks = [
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="todo">
         <h1>To do:</h1>
         <List tasks={sampleTasks} />
       </div>
