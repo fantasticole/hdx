@@ -5,7 +5,14 @@ import List from "./components/List";
 import "./styles/app.scss";
 
 const sampleTasks = [
-  { title: "task" },
+  {
+    title: "task",
+    subtasks: [
+      {
+        title: "subtask",
+      },
+    ],
+  },
   { title: "another task" },
   { title: "other task" },
 ];

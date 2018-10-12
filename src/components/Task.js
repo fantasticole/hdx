@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import { taskPropType } from "../utils/propTypes";
 
+import List from "./List";
+
 class Task extends Component {
   constructor(props) {
     super(props)
@@ -37,6 +39,9 @@ class Task extends Component {
     return (
       <div className="task">
         <p className="label">{task.title}</p>
+        <div className="subtasks">
+          {task.subtasks && <List tasks={task.subtasks} />}
+        </div>
       </div>
     );
   }
