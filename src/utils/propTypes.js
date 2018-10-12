@@ -8,5 +8,5 @@ const childTaskType = childTaskFunction(() => (taskPropType));
 
 export const taskPropType = PropTypes.shape({
   title: PropTypes.string.isRequired,
-  subtasks: PropTypes.arrayOf(childTaskType),
+  tasks: PropTypes.objectOf(childTaskType),
 });

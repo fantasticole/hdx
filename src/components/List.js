@@ -7,9 +7,11 @@ import Task from "./Task";
 
 class List extends Component {
   render() {
+    const tasks = Object.values(this.props.tasks);
+
     return (
       <div className="list">
-        {this.props.tasks.map((task) => (
+        {tasks.map((task) => (
           <Task task={task} key={task.title}/>
         ))}
       </div>
@@ -18,7 +20,9 @@ class List extends Component {
 }
 
 List.propTypes = {
-  tasks: PropTypes.arrayOf(taskPropType),
+  tasks: PropTypes.shape({
+    tasks: PropTypes.objectOf(taskPropType),
+  }),
 };
 
 List.defaultProps = {

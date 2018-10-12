@@ -64,7 +64,7 @@ class Task extends Component {
           <p className="label">{task.title}</p>
         </div>
         <div className="subtasks">
-          {task.subtasks && <List tasks={task.subtasks} />}
+          {task.tasks && <List tasks={task.tasks} />}
         </div>
       </div>
     );
