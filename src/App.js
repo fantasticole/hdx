@@ -4,7 +4,6 @@ import FontAwesome from "react-fontawesome";
 import List from "./components/List";
 
 import generateID from "./utils/generateID";
-import sampleTasks from "./utils/sampleTasks";
 
 import "./styles/app.scss";
 
@@ -12,8 +11,15 @@ class App extends Component {
   constructor(props) {
     super(props)
 
+    const id = generateID();
+
     this.state = {
-      tasks: sampleTasks,
+      tasks: {
+        [id]: {
+          id,
+          title: "",
+        }
+      },
     };
   }
 
