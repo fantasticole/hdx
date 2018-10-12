@@ -3,10 +3,23 @@ body {
 }
 
 .todo {
-  padding: 20px;
+  padding: 20px 0;
+  background: repeating-linear-gradient(
+    #ddd,
+    #ddd 1px,
+    #fff 1px,
+    #fff 40px
+  );
+  min-height: 100vh;
 
   h1 {
     font-size: 3rem;
+    margin: 24px 0;
+    margin-left: 20px;
+
+    & + button {
+      margin-left: 20px;
+    }
   }
 
   p {
@@ -20,11 +33,34 @@ body {
   }
 
   .list {
-    margin-left: 20px;
+    margin-top: 5px;
+    background-color: #fff;
+    box-sizing: border-box;
   }
 
   .task {
-    padding: 20px 0 0;
+    padding: 10px 0 0 30px;
+
+    .details {
+      padding-bottom: 10px;
+      position: relative;
+
+      &:after {
+        content: "";
+        position: absolute;
+        left: -100vw;
+        bottom: 0;
+        width: 500vw;
+        height: 1px;
+        background-color: #ddd;
+      }
+
+      &:last-child {
+        &:after {
+          background-color: transparent;
+        }
+      }
+    }
   }
 
   .label {

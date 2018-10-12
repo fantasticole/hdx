@@ -96,6 +96,7 @@ class Task extends Component {
               <FontAwesome name="save" />
             </button>,
             <input
+              autoFocus
               defaultValue={task.title}
               key="input"
               name="title"
