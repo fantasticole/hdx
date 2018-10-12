@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import FontAwesome from "react-fontawesome";
 import PropTypes from "prop-types";
 
+import generateID from "../utils/generateID";
 import { taskPropType } from "../utils/propTypes";
 
 import List from "./List";
@@ -11,24 +12,45 @@ class Task extends Component {
     super(props)
 
     this.state = {
-      editing: false,
-      title: props.task.title,
+      editing: props.task.title.length === 0,
+      task: props.task,
     };
   }
 
-  handleChange = (e) => {
+  handleAddSubtask = () => {
+    // create an empty task
+    const newTask = {
+      id: generateID(),
+      title: "",
+    };
+
+    // add it to the state
+    this.setState(({ task }) => ({
+      task: {
+        ...task,
+        tasks: {
+          ...task.tasks,
+          [newTask.id]: newTask,
+        }
+      }
+    }));
+  }
+
+  handleChangeTitle = (e) => {
     const { value } = e.target;
 
+    const { task } = this.state;
+
     this.setState({
-      title: value,
+      task: {
+        ...task,
+        title: value,
+      }
     })
   }
 
   handleSaveTitle = () => {
-    this.props.saveTask({
-      ...this.props.task,
-      title: this.state.title,
-    })
+    this.props.saveTask(this.state.task);
     this.toggleEdit();
   }
 
@@ -51,7 +73,7 @@ class Task extends Component {
   render() {
     const { editing } = this.state;
 
-    const { task } = this.props;
+    const { task } = this.state;
 
     if (task.title.length === 0 || editing) {
       return (
@@ -60,7 +82,7 @@ class Task extends Component {
             <button
               alt="save task"
               className="icon"
-              disabled={this.state.title.length === 0}
+              disabled={task.title.length === 0}
               onClick={this.handleSaveTitle}
             >
               <FontAwesome name="save" />
@@ -68,7 +90,7 @@ class Task extends Component {
             <input
               defaultValue={task.title}
               name="title"
-              onChange={this.handleChange}
+              onChange={this.handleChangeTitle}
               placeholder="Task title"
               type="text"
             />
@@ -85,6 +107,12 @@ class Task extends Component {
             className="icon"
             onClick={this.toggleEdit}>
             <FontAwesome name="edit" />
+          </button>
+          <button
+            alt="add subtask"
+            className="icon"
+            onClick={this.handleAddSubtask}>
+            <FontAwesome name="plus" />
           </button>
           <p className="label">{task.title}</p>
         </div>

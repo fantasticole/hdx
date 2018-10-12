@@ -25,7 +25,7 @@ class App extends Component {
     };
 
     // add it to the state
-    this.setState(({ tasks}) => ({
+    this.setState(({ tasks }) => ({
       tasks: {
         ...tasks,
         [newTask.id]: newTask,
