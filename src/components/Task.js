@@ -53,11 +53,15 @@ class Task extends Component {
 
     const { task } = this.props;
 
-    if (editing) {
+    if (task.title.length === 0 || editing) {
       return (
         <div className="task editing">
           <div className="details">
-            <button className="icon" onClick={this.handleSaveTitle}>
+            <button
+              className="icon"
+              disabled={this.state.title.length === 0}
+              onClick={this.handleSaveTitle}
+            >
               <FontAwesome name="save" />
             </button>
             <input
