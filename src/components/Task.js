@@ -49,6 +49,13 @@ class Task extends Component {
     })
   }
 
+  handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      // save work
+      this.handleSaveTitle();
+    }
+  }
+
   handleSaveTitle = () => {
     this.props.saveTask(this.state.task);
     this.toggleEdit();
@@ -71,50 +78,49 @@ class Task extends Component {
   }
 
   render() {
-    const { editing } = this.state;
-
     const { task } = this.state;
 
-    if (task.title.length === 0 || editing) {
-      return (
-        <div className="task editing">
-          <div className="details">
-            <button
-              alt="save task"
-              className="icon"
-              disabled={task.title.length === 0}
-              onClick={this.handleSaveTitle}
-            >
-              <FontAwesome name="save" />
-            </button>
-            <input
-              defaultValue={task.title}
-              name="title"
-              onChange={this.handleChangeTitle}
-              placeholder="Task title"
-              type="text"
-            />
-          </div>
-        </div>
-      );
-    }
+    const editing = task.title.length === 0 || this.state.editing;
 
     return (
       <div className="task">
         <div className="details">
-          <button
-            alt="edit task"
-            className="icon"
-            onClick={this.toggleEdit}>
-            <FontAwesome name="edit" />
-          </button>
-          <button
-            alt="add subtask"
-            className="icon"
-            onClick={this.handleAddSubtask}>
-            <FontAwesome name="plus" />
-          </button>
-          <p className="label">{task.title}</p>
+          {editing ? ([
+            <button
+              alt="save task"
+              className="icon"
+              disabled={task.title.length === 0}
+              key="save"
+              onClick={this.handleSaveTitle}
+            >
+              <FontAwesome name="save" />
+            </button>,
+            <input
+              defaultValue={task.title}
+              key="input"
+              name="title"
+              onChange={this.handleChangeTitle}
+              onKeyPress={this.handleKeyPress}
+              placeholder="Task title"
+              type="text"
+            />
+          ]) : ([
+            <button
+              alt="edit task"
+              className="icon"
+              key="edit"
+              onClick={this.toggleEdit}>
+              <FontAwesome name="edit" />
+            </button>,
+            <button
+              alt="add subtask"
+              className="icon"
+              key="add"
+              onClick={this.handleAddSubtask}>
+              <FontAwesome name="plus" />
+            </button>,
+            <p key="label" className="label">{task.title}</p>
+          ])}
         </div>
         <div className="subtasks">
           {task.tasks && <List saveTask={this.updateSubtasks} tasks={task.tasks} />}
