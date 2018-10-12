@@ -12,7 +12,7 @@ class List extends Component {
     return (
       <div className="list">
         {tasks.map((task) => (
-          <Task task={task} key={task.title}/>
+          <Task task={task} key={task.id}/>
         ))}
       </div>
     );
@@ -20,9 +20,7 @@ class List extends Component {
 }
 
 List.propTypes = {
-  tasks: PropTypes.shape({
-    tasks: PropTypes.objectOf(taskPropType),
-  }),
+  tasks: PropTypes.objectOf(taskPropType),
 };
 
 List.defaultProps = {
