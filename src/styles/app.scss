@@ -40,6 +40,18 @@ body {
 
   .task {
     padding: 10px 0 0 30px;
+    position: relative;
+
+    .task {
+      &:before {
+        content: "»";
+        position: absolute;
+        left: 5px;
+        top: 10px;
+        font-size: 1.5rem;
+        color: #aaa;
+      }
+    }
 
     .details {
       padding-bottom: 10px;
