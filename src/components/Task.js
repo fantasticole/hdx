@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import FontAwesome from "react-fontawesome";
 
 import { taskPropType } from "../utils/propTypes";
 
@@ -10,16 +11,25 @@ class Task extends Component {
 
     this.state = {
       editing: false,
-      title: "",
+      title: props.task.title,
     };
   }
 
   handleChange = (e) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
 
     this.setState({
-      [name]: value,
+      title: value,
     })
+  }
+
+  handleSave = () => {
+    // TODO: save updates
+    this.toggleEdit();
+  }
+
+  toggleEdit = () => {
+    this.setState(({ editing }) => ({ editing: !editing }));
   }
 
   render() {
@@ -30,15 +40,29 @@ class Task extends Component {
     if (editing) {
       return (
         <div className="task editing">
-          <p className="label">Task Name</p>
-          <input type="text" name="title"/>
+          <div className="details">
+            <button className="icon" onClick={this.handleSave}>
+              <FontAwesome name="save" />
+            </button>
+            <input
+              type="text"
+              name="title"
+              placeholder="Task title"
+              defaultValue={task.title}
+            />
+          </div>
         </div>
       );
     }
 
     return (
       <div className="task">
-        <p className="label">{task.title}</p>
+        <div className="details">
+          <button className="icon" onClick={this.toggleEdit}>
+            <FontAwesome name="edit" />
+          </button>
+          <p className="label">{task.title}</p>
+        </div>
         <div className="subtasks">
           {task.subtasks && <List tasks={task.subtasks} />}
         </div>
